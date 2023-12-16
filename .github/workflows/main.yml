@@ -1,0 +1,36 @@
+#Especifica el nombre del flujo de trabajo. En este caso, es "Python application test with GitHub Actions"
+name: Python application Predict 
+#Indica los eventos que desencadenarán la ejecución del flujo de trabajo. 
+#En este caso, el flujo de trabajo se ejecutará cuando haya un push en el repositorio.
+on: [push]
+
+#Define un trabajo llamado "build" que se ejecutará en una máquina virtual con 
+#el sistema operativo Ubuntu más reciente (ubuntu-latest).
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+#steps: Contiene una serie de pasos que se ejecutarán en el trabajo "build".
+# Cada paso realiza una tarea específica.
+    steps:
+#actions/checkout@v2: Este paso utiliza la acción oficial checkout 
+#para clonar el repositorio en la máquina virtual.
+    - uses: actions/checkout@v2
+#actions/setup-python@v1: Configura la versión de Python en la máquina virtual. 
+#En este caso, se usa Python 3.9.
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Install dependencies
+      run: |
+        make install
+    - name: Lint with pylint
+      run: |
+        make lint
+    - name: Test with pytest
+      run: |
+        make test
+    - name: Format code
+      run: |
+        make format
