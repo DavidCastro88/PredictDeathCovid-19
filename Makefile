@@ -4,7 +4,7 @@ install:
 
 test: 
 		python -m pytest -vv test_.py
-		#python -m pytest --nbval Predictive_Mortality_Risk_Model.ipynb
+		python -m pytest --nbval Predictive_Mortality_Risk_Model.ipynb
 
 format:
 		black *.ipynb
